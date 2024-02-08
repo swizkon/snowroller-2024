@@ -6,6 +6,9 @@ var builder = WebApplication.CreateSlimBuilder(args);
 
 var services = builder.Services;
 
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
 // No fancy DI here, just a simple service until more is needed
 services.AddSingleton<CongestionTaxCalculator>();
 
@@ -14,6 +17,13 @@ services.AddSingleton<CongestionTaxCalculator>();
 var app = builder.Build();
 
 app.MapEndpoints();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

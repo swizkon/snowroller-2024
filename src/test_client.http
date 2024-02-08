@@ -2,7 +2,7 @@
 # Some requests to test some dates and vehicle types
 # ATM you might need to change the port
 
-@api_url = http://localhost:5000
+@api_url = http://localhost:5062
 
 ### Get the help-page
 GET {{api_url}}
