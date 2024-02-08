@@ -10,7 +10,8 @@ Prio:
 
 ### Thoughts
 
-Maybe a good candidate for approval tests ti check the dates and iterate for date and some known vehicle types?
+Maybe a good candidate for approval tests?\
+Maybe more as a tool to check the dates and iterate for date and some known vehicle types?
 
 Free days:\
 Do a localized "banking holiday" look-up abstraction for country + maybe some other goodies?
@@ -19,8 +20,8 @@ Currency:\
 Use decimal as default for any monetary stuff, or maybe een better Money-type with amount and currency.
 
 
-Fix validation of time intervals
-
+Fix validation of time intervals\
+Need to evaluate which passages to keep within a time range of the most expensive ones.
 
 Since we are not dealing with any behavior regarding vehicles, maybe easire to just to one that holds the type to fulfill the interface and fix string bugs.
 
@@ -28,103 +29,23 @@ Since we are not dealing with any behavior regarding vehicles, maybe easire to j
 
 ### TODOs
 
-Fix grouping and calculating of passages to exclude.
-
+Fix grouping and calculating of passages to exclude.\
 Need to recursive until no entries are closer that the threshold for timeframe.
 
----
+Go through the dates and see if there are any more special cases, for example do some `FeeSettings.ValidFrom` and `FeeSettings.ValidTo` to enable future price corections.
 
-Your colleague started working on an application for calculating congestion tax fees for vehicles within the Gothenburg area.
-Unfortunately, said colleague has gone on parental leave and left the half-finished project to you.
+Refactor domain logic code
 
-While there are no syntax errors in the attached code, there seem to be bugs in the calculation, and there is no entry point to the project,
-only a class library that currently isn't called from anywhere.
+Add date validation (all passages must be on same day) or group by day in result
 
-Looking around your colleagues desk, you find a list of dates scribbled on a post-it. Maybe they'll come in handy.
+Verify that correct prices are applied
 
-"2013-01-14 21:00:00"
+SEE
+https://skatteverket.se/privat/skatter/bilochtrafik/trangselskatt/goteborg.4.2b543913a42158acf80006815.html
 
-"2013-01-15 21:00:00"
+https://www.transportstyrelsen.se/sv/vagtrafik/Trangselskatt/Trangselskatt-i-goteborg/undantag-fran-trangselskatt-i-backa/
+https://www.transportstyrelsen.se/sv/vagtrafik/Trangselskatt/Trangselskatt-i-goteborg/Tider-och-belopp-i-Goteborg/dagar-da-trangselskatt-inte-tas-ut-i-goteborg/
 
-"2013-02-07 06:23:27"
-
-"2013-02-07 15:27:00"
-
-"2013-02-08 06:27:00"
-
-"2013-02-08 06:20:27"
-
-"2013-02-08 14:35:00"
-
-"2013-02-08 15:29:00"
-
-"2013-02-08 15:47:00"
-
-"2013-02-08 16:01:00"
-
-"2013-02-08 16:48:00"
-
-"2013-02-08 17:49:00"
-
-"2013-02-08 18:29:00"
-
-"2013-02-08 18:35:00"
-
-"2013-03-26 14:25:00"
-
-"2013-03-28 14:07:27"
-
-## Assignment
-
-**We want you to think through and implement the changes and additions required to implement a solution that solves the problem and that you would approve and could stand for.**
-
-[x] The application currently doesn't have an entry point, add a way to call the calculation with different inputs, preferrably over HTTP.
-[ ] As stated there may be bugs in the code, try to find and fix them.
-[ ] There is no particular structure to the code so there are several improvements that can be made.
-
-You may limit the scope to the year 2013.
-
-Please limit your total time spent on this assignment to 4 hours. We are not looking for a complete solution and we are interested to see how you prioritise your work given the time constraint.
-Feel free to document what you wanted to focus on in the time given and layout any additional work you would like to have done with more time.
-
-The starting code is provided in Java, C#, Python, Go and TypeScript, pick the language you are most comfortable with.
-If you want to write your code using a different language, feel free.
-
-## Congestion tax rules in Gothenburg
-
-Congestion tax is charged during fixed hours for vehicles driving into and out of Gothenburg.
-
-The maximum amount per day and vehicle is 60 SEK.
-
-The tax is not charged on weekends (Saturdays and Sundays), public holidays, days before a public holiday and during the month of July.
-
-### Hours and amounts for congestion tax in Gothenburg
-
-| Time        | Amount |
-| ----------- | :----: |
-| 06:00–06:29 | SEK 8  |
-| 06:30–06:59 | SEK 13 |
-| 07:00–07:59 | SEK 18 |
-| 08:00–08:29 | SEK 13 |
-| 08:30–14:59 | SEK 8  |
-| 15:00–15:29 | SEK 13 |
-| 15:30–16:59 | SEK 18 |
-| 17:00–17:59 | SEK 13 |
-| 18:00–18:29 | SEK 8  |
-| 18:30–05:59 | SEK 0  |
-
-### The single charge rule
-
-A single charge rule applies in Gothenburg. Under this rule, a vehicle that passes several tolling stations within 60 minutes is only taxed once. The amount that must be paid is the highest one.
-
-### Tax Exempt vehicles
-
-- Emergency vehicles
-- Busses
-- Diplomat vehicles
-- Motorcycles
-- Military vehicles
-- Foreign vehicles
 
 ## Bonus Scenario
 

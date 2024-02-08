@@ -18,7 +18,7 @@ public class CongestionTaxApiTests
     public void Given_default_fee_settings_and_single_passage_Then_tax_should_be_correct(DateTime date, int expectedTax)
     {
         var result = CongestionTaxCalculator.GetTax(Vehicle.Car(), new[]
-        {
+        {   
             date
         });
 
