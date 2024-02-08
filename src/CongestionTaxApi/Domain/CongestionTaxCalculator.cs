@@ -1,3 +1,4 @@
+using CongestionTaxApi.Configuration;
 using CongestionTaxApi.Integrations;
 
 namespace CongestionTaxApi.Domain;
@@ -5,6 +6,8 @@ namespace CongestionTaxApi.Domain;
 public class CongestionTaxCalculator
 {
     private readonly ICheckHolidays _holidayCalendar = new NationalCalendarService();
+
+    private readonly FeeSettings _feeSettings = FeeSettingsConfigs.GetGothenburgFeeSettings(); // Use DI or some other means to configure this
 
     /**
      * Calculate the total toll fee for one day
@@ -16,6 +19,7 @@ public class CongestionTaxCalculator
 
     public int GetTax(Vehicle vehicle, DateTime[] dates)
     {
+        // Here we need to calculate the price for all the dates and mark the ines that has 
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates)
@@ -23,6 +27,7 @@ public class CongestionTaxCalculator
             int nextFee = GetTollFee(date, vehicle);
             int tempFee = GetTollFee(intervalStart, vehicle);
 
+            //
             long diffInMillies = date.Millisecond - intervalStart.Millisecond;
             long minutes = diffInMillies / 1000 / 60;
 
@@ -37,6 +42,8 @@ public class CongestionTaxCalculator
                 totalFee += nextFee;
             }
         }
+
+        // TODO Fix magic number to be from a settings file
         if (totalFee > 60) totalFee = 60;
         return totalFee;
     }
@@ -48,30 +55,48 @@ public class CongestionTaxCalculator
         var hour = date.Hour;
         var minute = date.Minute;
 
-        switch (hour)
-        {
-            case 6 when minute >= 0 && minute <= 29:
-                return 8;
-            case 6 when minute >= 30 && minute <= 59:
-                return 13;
-            case 7 when minute >= 0 && minute <= 59:
-                return 18;
-            case 8 when minute >= 0 && minute <= 29:
-                return 13;
-            case >= 8 and <= 14 when minute >= 30 && minute <= 59:
-                return 8;
-            case 15 when minute >= 0 && minute <= 29:
-                return 13;
-            case 15 when minute >= 0:
-            case 16 when minute <= 59:
-                return 18;
-            case 17 when minute >= 0 && minute <= 59:
-                return 13;
-            case 18 when minute >= 0 && minute <= 29:
-                return 8;
-            default:
-                return 0;
-        }
+        // Get the correct fee for the date time from the fee settings
+        var fee = GetFee(TimeOnly.FromDateTime(date));
+
+        // Need to be fixed...
+        return (int)fee.Amount;
+
+        //switch (hour)
+        //{
+        //    case 6 when minute >= 0 && minute <= 29:
+        //        return 8;
+        //    case 6 when minute >= 30 && minute <= 59:
+        //        return 13;
+        //    case 7 when minute >= 0 && minute <= 59:
+        //        return 18;
+        //    case 8 when minute >= 0 && minute <= 29:
+        //        return 13;
+        //    case >= 8 and <= 14 when minute >= 30 && minute <= 59:
+        //        return 8;
+        //    case 15 when minute >= 0 && minute <= 29:
+        //        return 13;
+        //    case 15 when minute >= 0:
+        //    case 16 when minute <= 59:
+        //        return 18;
+        //    case 17 when minute >= 0 && minute <= 59:
+        //        return 13;
+        //    case 18 when minute >= 0 && minute <= 29:
+        //        return 8;
+        //    default:
+        //        return 0;
+        //}
+    }
+
+    private Money GetFee(TimeOnly time)
+    {
+        var feeIntervals = _feeSettings.FeeIntervals;
+        if (feeIntervals == null) return 0.ToSEK();
+
+        // Get a single fee that matches the time
+        var interval = feeIntervals.SingleOrDefault(feeInterval =>
+                       feeInterval.From <= time && time < feeInterval.Until);
+
+        return interval?.Fee ?? 0.ToSEK();
     }
 
     private bool IsTollFreeDate(DateOnly date)

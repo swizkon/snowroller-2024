@@ -8,8 +8,7 @@
 GET {{api_url}}
 
 
-### Calculate the price for a car on normal day outside fee interval
-
+### Calculate the price for single passage a car on normal day fee interval
 POST {{api_url}}/api/congestion-tax/summary
 Accept: */*
 Content-Type: application/json
@@ -21,5 +20,69 @@ Content-Type: application/json
   },
   "passages": [
     "2013-01-02T15:32:59.985Z"
+  ]
+}
+
+
+### Calculate the price for a car on normal day outside fee interval
+POST {{api_url}}/api/congestion-tax/summary
+Accept: */*
+Content-Type: application/json
+
+{
+  "vehicle": {
+    "vehicleType": "Car",
+    "vehicleCategory": "Civic"
+  },
+  "passages": [
+    "2013-01-02T22:32:59.985Z"
+  ]
+}
+
+
+### Calculate the price for a car on weekend day outside fee interval
+POST {{api_url}}/api/congestion-tax/summary
+Accept: */*
+Content-Type: application/json
+
+{
+  "vehicle": {
+    "vehicleType": "Car",
+    "vehicleCategory": "Civic"
+  },
+  "passages": [
+    "2013-01-02T22:32:59.985Z"
+  ]
+}
+
+### Calculate the price for correct grouping and discarding of close by passages
+POST {{api_url}}/api/congestion-tax/summary
+Accept: */*
+Content-Type: application/json
+
+{
+  "vehicle": {
+    "vehicleType": "Car",
+    "vehicleCategory": "Civic"
+  },
+  "passages": [
+    "2013-01-02T15:32:59.985Z"
+  ]
+}
+
+
+### Calculate the max price
+POST {{api_url}}/api/congestion-tax/summary
+Accept: */*
+Content-Type: application/json
+
+{
+  "vehicle": {
+    "vehicleType": "Car",
+    "vehicleCategory": "Civic"
+  },
+  "passages": [
+    "2013-01-02T15:32:59.985Z",
+    "2013-01-02T17:32:59.985Z"
   ]
 }

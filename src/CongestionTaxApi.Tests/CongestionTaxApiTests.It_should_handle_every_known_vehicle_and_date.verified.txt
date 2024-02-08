@@ -3,7 +3,7 @@
   2013-01-15 is a Tuesday and Car should pay 0,
   2013-02-07 is a Thursday and Car should pay 13,
   2013-02-08 is a Friday and Car should pay 48,
-  2013-03-26 is a Tuesday and Car should pay 0,
+  2013-03-26 is a Tuesday and Car should pay 8,
   2013-03-28 is a Thursday and Car should pay 0,
   2013-12-24 is a Tuesday and Car should pay 0
 ]

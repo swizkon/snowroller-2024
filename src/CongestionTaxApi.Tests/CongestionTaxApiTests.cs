@@ -8,12 +8,23 @@ public class CongestionTaxApiTests
 {
     public CongestionTaxCalculator CongestionTaxCalculator => new CongestionTaxCalculator();
 
-    [Fact]
-    public void Test1()
+    [Theory]
+    [InlineData("2013-12-10 05:59:59", 0)]
+    [InlineData("2013-12-10 06:00", 8)]
+    [InlineData("2013-12-10 14:59:59", 8)]
+    [InlineData("2013-12-10 15:00", 13)]
+    [InlineData("2013-12-10 17:59:59.999", 13)]
+    [InlineData("2013-12-10 18:30", 0)]
+    public void Given_default_fee_settings_and_single_passage_Then_tax_should_be_correct(DateTime date, int expectedTax)
     {
-        var rates = FeeSettingsConfigs.GetGothenburgFeeSettings();
+        // var date = DateTime.Parse(date);
 
-        rates.Should().NotBeNull();
+        var result = CongestionTaxCalculator.GetTax(Vehicle.Car(), new[]
+        {
+            date
+        });
+
+        result.Should().Be(expectedTax);
     }
 
     [Fact]

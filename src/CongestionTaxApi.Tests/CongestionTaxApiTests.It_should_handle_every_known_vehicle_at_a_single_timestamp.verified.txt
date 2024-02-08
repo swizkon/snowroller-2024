@@ -13,7 +13,7 @@
   2013-02-08T17:49:00 is a Friday and Car should pay 13,
   2013-02-08T18:29:00 is a Friday and Car should pay 8,
   2013-02-08T18:35:00 is a Friday and Car should pay 0,
-  2013-03-26T14:25:00 is a Tuesday and Car should pay 0,
+  2013-03-26T14:25:00 is a Tuesday and Car should pay 8,
   2013-03-28T14:07:27 is a Thursday and Car should pay 0,
   2013-12-24T15:00:00 is a Tuesday and Car should pay 0
 ]
