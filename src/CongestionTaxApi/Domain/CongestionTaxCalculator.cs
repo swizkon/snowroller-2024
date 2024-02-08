@@ -27,7 +27,8 @@ public class CongestionTaxCalculator
 
         // Order by cost or do a linked list a la king of the hill?
 
-        // TODO Here we need to calculate the price for all the dates and exclude all that has one
+        // TODO Here we need to calculate the price for all the dates and exclude all that has one higher value within the timeframe.
+        // 
 
         DateTime intervalStart = dates[0];
         int totalFee = 0;
@@ -67,7 +68,7 @@ public class CongestionTaxCalculator
         // Get the correct fee for the date time from the fee settings
         var fee = GetFee(TimeOnly.FromDateTime(date));
 
-        // Need to be fixed...
+        // TODO Need to be fixed after tests are stable. Probably better to use decimal or a Money-type everywhere inside the domain...
         return (int)fee.Amount;
 
         //switch (hour)

@@ -26,6 +26,20 @@ public class CongestionTaxApiTests
     }
 
     [Fact]
+    public void Given_default_fee_settings_and_multiple_passages_Then_tax_should_be_highest_one()
+    {
+        var expensiveTime = DateTime.Parse("2013-12-10 07:30");
+        var result = CongestionTaxCalculator.GetTax(Vehicle.Car(), new[]
+        {
+            expensiveTime.AddMinutes(-45),
+            expensiveTime,
+            expensiveTime.AddMinutes(45)
+        });
+
+        result.Should().Be(18);
+    }
+
+    [Fact]
     public void Weekends_are_TollFree()
     {
         var date = GetWeekendDate();
