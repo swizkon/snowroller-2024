@@ -19,7 +19,16 @@ public class CongestionTaxCalculator
 
     public int GetTax(Vehicle vehicle, DateTime[] dates)
     {
-        // Here we need to calculate the price for all the dates and mark the ines that has 
+        // TODO Should we validate here that the dates are from the same day?
+
+        // Calc every passage
+        var datesAndRates = dates.Select(date => (date, GetTollFee(date, vehicle))).ToList();
+        // Here we need to recurse through the list until no entries are closer that threshold...
+
+        // Order by cost or do a linked list a la king of the hill?
+
+        // TODO Here we need to calculate the price for all the dates and exclude all that has one
+
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates)
@@ -27,7 +36,7 @@ public class CongestionTaxCalculator
             int nextFee = GetTollFee(date, vehicle);
             int tempFee = GetTollFee(intervalStart, vehicle);
 
-            //
+            // TODO This does not do the trick..
             long diffInMillies = date.Millisecond - intervalStart.Millisecond;
             long minutes = diffInMillies / 1000 / 60;
 

@@ -17,8 +17,6 @@ public class CongestionTaxApiTests
     [InlineData("2013-12-10 18:30", 0)]
     public void Given_default_fee_settings_and_single_passage_Then_tax_should_be_correct(DateTime date, int expectedTax)
     {
-        // var date = DateTime.Parse(date);
-
         var result = CongestionTaxCalculator.GetTax(Vehicle.Car(), new[]
         {
             date
@@ -57,15 +55,14 @@ public class CongestionTaxApiTests
             .AllBeEquivalentTo(0);
     }
 
-
     [Fact]
-    public void Max_is_TollFree()
+    public void Given_many_passages_Max_is_picked_from_fee_settings()
     {
-        Enumerable.Range(1, 31)
-            .Select(day => new DateTime(2013, 7, day, 15, 15, 15))
-            .Select(date => CongestionTaxCalculator.GetTollFee(date, Vehicle.Car()))
-            .Should()
-            .AllBeEquivalentTo(0);
+        var passages =  Enumerable.Range(6, 14)
+            .Select(hour => new DateTime(2013, 12, 10, hour, 15, 15));
+
+        var result = CongestionTaxCalculator.GetTax(Vehicle.Car(), passages.ToArray());
+        result.Should().Be(60);
     }
 
     [Fact]

@@ -24,6 +24,14 @@ Fix validation of time intervals
 
 Since we are not dealing with any behavior regarding vehicles, maybe easire to just to one that holds the type to fulfill the interface and fix string bugs.
 
+
+
+### TODOs
+
+Fix grouping and calculating of passages to exclude.
+
+Need to recursive until no entries are closer that the threshold for timeframe.
+
 ---
 
 Your colleague started working on an application for calculating congestion tax fees for vehicles within the Gothenburg area.
