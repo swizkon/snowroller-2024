@@ -1,0 +1,9 @@
+﻿[
+  2013-01-14 is a Monday and Other should pay 0,
+  2013-01-15 is a Tuesday and Other should pay 0,
+  2013-02-07 is a Thursday and Other should pay 13,
+  2013-02-08 is a Friday and Other should pay 48,
+  2013-03-26 is a Tuesday and Other should pay 0,
+  2013-03-28 is a Thursday and Other should pay 0,
+  2013-12-24 is a Tuesday and Other should pay 0
+]
