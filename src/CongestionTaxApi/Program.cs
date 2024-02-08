@@ -1,16 +1,19 @@
+using CongestionTaxApi.Api;
+using CongestionTaxApi.Domain;
 
-using Microsoft.AspNetCore.Mvc;
 
-var app = WebApplication
-    .CreateSlimBuilder(args)
-    .Build();
+var builder = WebApplication.CreateSlimBuilder(args);
 
+var services = builder.Services;
+
+// No fancy DI here, just a simple service until more is needed
+services.AddSingleton<CongestionTaxCalculator>();
 
 // Default some kind of "man page" as default for the API
-app.MapGet("/", () =>
-    Results.Text(
-        content: File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "HELP.md")),
-        contentType: "text/plain"));
+
+var app = builder.Build();
+
+app.MapEndpoints();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

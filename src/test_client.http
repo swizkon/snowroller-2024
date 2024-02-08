@@ -1,0 +1,25 @@
+
+# Some requests to test some dates and vehicle types
+# ATM you might need to change the port
+
+@api_url = http://localhost:5000
+
+### Get the help-page
+GET {{api_url}}
+
+
+### Calculate the price for a car on normal day outside fee interval
+
+POST {{api_url}}/api/congestion-tax/summary
+Accept: */*
+Content-Type: application/json
+
+{
+  "vehicle": {
+    "vehicleType": "Car",
+    "vehicleCategory": "Civic"
+  },
+  "passages": [
+    "2013-01-02T15:32:59.985Z"
+  ]
+}

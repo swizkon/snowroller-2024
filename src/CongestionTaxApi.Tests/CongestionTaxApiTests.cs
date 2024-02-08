@@ -46,6 +46,17 @@ public class CongestionTaxApiTests
             .AllBeEquivalentTo(0);
     }
 
+
+    [Fact]
+    public void Max_is_TollFree()
+    {
+        Enumerable.Range(1, 31)
+            .Select(day => new DateTime(2013, 7, day, 15, 15, 15))
+            .Select(date => CongestionTaxCalculator.GetTollFee(date, Vehicle.Car()))
+            .Should()
+            .AllBeEquivalentTo(0);
+    }
+
     [Fact]
     public void Motorbikes_are_TollFree()
     {
@@ -138,12 +149,10 @@ public class CongestionTaxApiTests
 
         "2013-02-08 18:29:00", // <- Need to 
         "2013-02-08 18:35:00",
-        "2013-03-26 14:25:00", // <- What is this date?
+        "2013-03-26 14:25:00",
         "2013-03-28 14:07:27",
 
-
-
-        "2013-12-24 15:00:00", // These need to be tested properly for correct toll fees grouped per hour
+        "2013-12-24 15:00:00",
     };
 
 }

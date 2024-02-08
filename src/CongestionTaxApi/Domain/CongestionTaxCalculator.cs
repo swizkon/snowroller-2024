@@ -80,13 +80,21 @@ public class CongestionTaxCalculator
         {
             return true;
         }
-        
+
+        // Hard-coded rule for now...
+        if (date.Month is 7)
+        {
+            return true;
+        }
+
         var isHoliday = _holidayCalendar.IsPublicHoliday("Sweden", date);
         return isHoliday;
     }
 
     private static bool IsTollFreeVehicle(IVehicle? vehicle)
     {
+        // Here maybe a combo of vehicle category and type would be better
+        // For example a car or motorcycle could be a foreign vehicle
         if (vehicle == null) return false;
         var vehicleType = vehicle.GetVehicleType();
         return (vehicleType is

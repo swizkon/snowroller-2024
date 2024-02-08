@@ -21,7 +21,7 @@ public class NationalCalendarService : ICheckHolidays
 
     private static bool IsSwedishHoliday(DateOnly date)
     {
-        // This might be a config or a service call
+        // This should maybe be a config or a service call
 
         // Sources:
         // https://www.kalender.se/aftnar/2013

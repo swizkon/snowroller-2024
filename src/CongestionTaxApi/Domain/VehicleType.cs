@@ -2,7 +2,7 @@ namespace CongestionTaxApi.Domain;
 
 public enum VehicleType
 {
-    Other,
+    Car,
     Motorcycle,
     Tractor,
     Emergency,
